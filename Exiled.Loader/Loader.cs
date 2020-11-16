@@ -74,6 +74,11 @@ namespace Exiled.Loader
         public static List<Assembly> Dependencies { get; } = new List<Assembly>();
 
         /// <summary>
+        /// Maps plugins to their locations.
+        /// </summary>
+        public static Dictionary<IPlugin<IConfig>, string> PluginLocations = new Dictionary<IPlugin<IConfig>, string>();
+
+        /// <summary>
         /// Runs the plugin manager, by loading all dependencies, plugins, configs and then enables all plugins.
         /// </summary>
         /// <param name="dependencies">The dependencies that could have been loaded by Exiled.Bootstrap.</param>
@@ -103,6 +108,7 @@ namespace Exiled.Loader
                     continue;
 
                 IPlugin<IConfig> plugin = CreatePlugin(assembly);
+                PluginLocations[plugin] = pluginPath;
 
                 if (plugin == null)
                     continue;
@@ -288,7 +294,7 @@ namespace Exiled.Loader
         /// </summary>
         /// <param name="path">The path to check from.</param>
         /// <returns>Returns whether the assembly is loaded or not.</returns>
-        public static bool IsAssemblyLoaded(string path) => Plugins.Any(plugin => plugin.Assembly.Location == path);
+        public static bool IsAssemblyLoaded(string path) => Plugins.Any(plugin => plugin.Location() == path);
 
         /// <summary>
         /// Loads all dependencies.

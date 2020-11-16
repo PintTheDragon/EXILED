@@ -23,6 +23,10 @@ namespace Exiled.API.Interfaces
         where TConfig : IConfig
     {
         /// <summary>
+        /// Gets the path that the plugin assembly is located.
+        /// </summary>
+        string Location();
+        /// <summary>
         /// Gets the plugin assembly.
         /// </summary>
         Assembly Assembly { get; }

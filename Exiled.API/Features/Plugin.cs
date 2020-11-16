@@ -38,6 +38,9 @@ namespace Exiled.API.Features
         }
 
         /// <inheritdoc/>
+        public string Location() => Exiled.Loader.Loader.PluginLocations[this];
+
+        /// <inheritdoc/>
         public Assembly Assembly { get; } = Assembly.GetCallingAssembly();
 
         /// <inheritdoc/>
